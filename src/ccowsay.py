@@ -209,6 +209,7 @@ def main(
 
     if get is not None:
         fetch_ccow(get)
+        return
 
     if ccow_format is None:
         ccow_format = config["default_format"]
