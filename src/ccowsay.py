@@ -75,9 +75,9 @@ def fetch_ccow(repo_path: str) -> Path:
             "Expected format: @/path/to/file.ccow or username/repo/path/to/file.ccow"
         )
     user, repo, rest = parts
-    url = f"https://raw.githubusercontent.com/{user}/{repo}/main/" + "/".join(rest)
+    url = f"https://raw.githubusercontent.com/{user}/{repo}/main/" + rest
 
-    filename = Path(urlparse(url).path).name
+    filename = Path(rest).name
     dest = CONFIG_DIR / filename
 
     response = requests.get(url)
