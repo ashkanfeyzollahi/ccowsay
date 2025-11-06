@@ -1,6 +1,6 @@
 [project]
 name = "ccowsay"
-version = "1.0.0"
+version = "1.0.2"
 description = "A tool for generating customizable ASCII art messages with speech bubbles and cow-style templates, supporting styled text using AnsiMarkup."
 authors = [
     {name = "Ashkan Feyzollahi",email = "ashkanfeyzollahi@gmail.com"}
