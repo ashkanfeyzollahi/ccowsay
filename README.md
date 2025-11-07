@@ -116,6 +116,8 @@ Use `--get` flag to download and store `.ccow` files locally:
 ccowsay --get path/to/file.ccow
 ```
 
+For more details, check out [ccows](https://github.com/ashkanfeyollahi/ccows).
+
 ## Embedding in Python
 
 ```python
