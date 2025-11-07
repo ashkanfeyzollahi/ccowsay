@@ -113,7 +113,7 @@ ccowsay -f "@/cow.ccow" "Hello World!"
 Use `--get` flag to download and store `.ccow` files locally:
 
 ```bash
-ccowsay --get user/repo/path/to/file.ccow
+ccowsay --get path/to/file.ccow
 ```
 
 ## Embedding in Python
