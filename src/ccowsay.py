@@ -49,32 +49,26 @@ class TextAlign(enum.Enum):
     RIGHT = "right"
 
 
-def fetch_ccow(repo_path: str) -> Path:
+def fetch_ccow(ccow_file: str) -> Path:
     """
     Download a .ccow file from a GitHub repository and store it locally.
 
     Example:
-        fetch_ccow("@/path/to/cow.ccow")
-        # or
-        fetch_ccow("username/repo/path/to/cow.ccow")
+        fetch_ccow("cow.ccow")
     Returns:
         Path: The local path to the saved .ccow file.
     """
 
-    repo_path = repo_path.replace("@", "ashkanfeyzollahi/ccows")
+    url = "https://raw.githubusercontent.com/ashkanfeyzollahi/ccows/main/" + ccow_file
 
-    parts = repo_path.split("/", 2)
-    if len(parts) < 3:
-        raise ValueError(
-            "Expected format: @/path/to/file.ccow or username/repo/path/to/file.ccow"
-        )
-    user, repo, rest = parts
-    url = f"https://raw.githubusercontent.com/{user}/{repo}/main/" + rest
-
-    filename = Path(rest).name
+    filename = Path(ccow_file).name
     dest = CONFIG_DIR / filename
 
     response = requests.get(url)
+
+    if response.status_code != 200:
+        raise
+
     downloaded_content = response.content
 
     dest.write_bytes(downloaded_content)
