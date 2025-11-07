@@ -2,7 +2,6 @@
 A tool for generating customizable ASCII art messages with speech bubbles and cow-style templates, supporting styled text using AnsiMarkup.
 """
 
-import base64
 import enum
 import json
 import sys
