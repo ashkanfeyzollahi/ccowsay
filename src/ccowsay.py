@@ -196,8 +196,9 @@ def main(
 
     if list_formats:
         print(f"Here are the .ccow formats in found in {str(CONFIG_DIR.absolute())!r}:")
-        for ccow_format_file in CONFIG_DIR.glob("*.ccow"):
-            print(ccow_format_file.stem, end=" ")
+        print(
+            [ccow_format_file.stem for ccow_format_file in CONFIG_DIR.glob("*.ccow")],
+        )
         return
 
     if get is not None:
