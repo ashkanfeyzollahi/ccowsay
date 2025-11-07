@@ -28,7 +28,7 @@ COW_CCOW_FILE = CONFIG_DIR / "cow.ccow"
 
 if not CONFIG_FILE.is_file():
     with open(CONFIG_FILE, "w") as config_file:
-        json.dump({"default_format": "@/cow"}, config_file)
+        json.dump({"default_format": "@/cow.ccow"}, config_file)
 
 with open(CONFIG_FILE) as config_file:
     config: dict[str, str] = json.load(config_file)
@@ -214,7 +214,7 @@ def main(
         ccow_format = config["default_format"]
 
     if ccow_format.startswith("@/"):
-        ccow_format = (CONFIG_DIR / (ccow_format[2:] + ".ccow")).read_text()
+        ccow_format = (CONFIG_DIR / ccow_format[2:]).read_text()
     else:
         ccow_format = Path(ccow_format).read_text()
 
