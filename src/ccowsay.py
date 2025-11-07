@@ -189,6 +189,11 @@ def main(
     A tool for generating customizable ASCII art messages with speech bubbles and cow-style templates, supporting styled text using AnsiMarkup.
     """
 
+    ensure_config_and_default_ccow_file()
+
+    with open(CONFIG_FILE) as config_file:
+        config: dict[str, str] = json.load(config_file)
+
     if list_formats:
         print(f"Here are the .ccow formats in found in {str(CONFIG_DIR.absolute())!r}:")
         for ccow_format_file in CONFIG_DIR.glob("*.ccow"):
