@@ -26,22 +26,18 @@ CONFIG_FILE = CONFIG_DIR / "ccowsay.conf"
 
 COW_CCOW_FILE = CONFIG_DIR / "cow.ccow"
 
-if not CONFIG_FILE.is_file():
-    with open(CONFIG_FILE, "w") as config_file:
-        json.dump({"default_format": "@/cow.ccow"}, config_file)
 
-with open(CONFIG_FILE) as config_file:
-    config: dict[str, str] = json.load(config_file)
+def ensure_config_and_default_ccow_file() -> None:
+    """
+    Ensure config and default `.ccow` file
+    """
 
-if not COW_CCOW_FILE.is_file():
-    COW_CCOW_FILE.write_bytes(
-        base64.standard_b64decode(
-            b"ewogICJleWVzIjogIm9vIiwKICAidG9uZ3VlIjogIiAgIgp9Ci0tLQp7bWVzc2FnZX0KICAgICAg"
-            + b"ICB7YmFja3NsYXNofSAgIF5fX14KICAgICAgICAge2JhY2tzbGFzaH0gICh7ZXllc30pXF9fX19f"
-            + b"X18KICAgICAgICAgICAgKF9fKVwgICAgICAgKVwvXAogICAgICAgICAgICAge3Rvbmd1ZX0gfHwt"
-            + b"LS0tdyB8CiAgICAgICAgICAgICAgICB8fCAgICAgfHwK"
-        )
-    )
+    if not CONFIG_FILE.is_file():
+        with open(CONFIG_FILE, "w") as config_file:
+            json.dump({"default_format": "@/cow.ccow"}, config_file)
+
+    if not COW_CCOW_FILE.is_file():
+        fetch_ccow("cow.ccow")
 
 
 class TextAlign(enum.Enum):
