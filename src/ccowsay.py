@@ -194,9 +194,9 @@ def main(
         config: dict[str, str] = json.load(config_file)
 
     if list:
-        print(f"Here are the .ccow formats in found in {str(CONFIG_DIR.absolute())!r}:")
+        print(f"Here are the .ccow files found in {str(CONFIG_DIR.absolute())!r}:")
         print(
-            [ccow_format_file.stem for ccow_format_file in CONFIG_DIR.glob("*.ccow")],
+            ', '.join([ccow_format_file.name for ccow_format_file in CONFIG_DIR.glob("*.ccow")]),
         )
         return
 
