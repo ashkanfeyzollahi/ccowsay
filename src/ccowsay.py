@@ -154,12 +154,12 @@ def ccowsay(
 
 @click.command()
 @click.argument("message", required=False)
-@click.option("-l", "--list-formats", is_flag=True)
-@click.option("-f", "--ccow-format", default=None)
+@click.option("-l", "--list", is_flag=True)
+@click.option("-f", "--format", default=None)
 @click.option(
-    "-a", "--text-align", default=TextAlign.LEFT, type=click.Choice(TextAlign)
+    "-a", "--align", default=Align.LEFT, type=click.Choice(Align)
 )
-@click.option("-w", "--wrap-width", default=40, type=int)
+@click.option("-w", "--wrap", default=40, type=int)
 @click.option("--replace-whitespace", is_flag=True)
 @click.option("-c", "--corners", default=DEFAULT_CORNERS, nargs=4)
 @click.option("-s", "--sides", default=DEFAULT_SIDES, nargs=4)
@@ -173,10 +173,10 @@ def ccowsay(
 )
 def main(
     message: str,
-    list_formats: bool,
-    ccow_format: None | str,
-    text_align: TextAlign,
-    wrap_width: int,
+    list: bool,
+    format: None | str,
+    align: Align,
+    wrap: int,
     replace_whitespace: bool,
     corners: tuple[str, str, str, str],
     sides: tuple[str, str, str, str],
@@ -184,7 +184,8 @@ def main(
     get: None | str,
 ) -> None:
     """
-    A tool for generating customizable ASCII art messages with speech bubbles and cow-style templates, supporting styled text using AnsiMarkup.
+    A tool for generating customizable ASCII art messages with speech bubbles and
+    cow-style templates, supporting styled text using AnsiMarkup.
     """
 
     ensure_config_and_default_ccow_file()
@@ -192,7 +193,7 @@ def main(
     with open(CONFIG_FILE) as config_file:
         config: dict[str, str] = json.load(config_file)
 
-    if list_formats:
+    if list:
         print(f"Here are the .ccow formats in found in {str(CONFIG_DIR.absolute())!r}:")
         print(
             [ccow_format_file.stem for ccow_format_file in CONFIG_DIR.glob("*.ccow")],
@@ -214,9 +215,9 @@ def main(
     print(
         ccowsay(
             message,
-            ccow_format,
-            text_align,
-            wrap_width,
+            format,
+            align,
+            wrap,
             replace_whitespace,
             corners,
             sides,
