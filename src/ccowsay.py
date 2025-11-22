@@ -78,9 +78,9 @@ def fetch_ccow(ccow_file: str) -> Path:
 
 def ccowsay(
     message: str,
-    ccow_format: str,
-    text_align: TextAlign = TextAlign.LEFT,
-    wrap_width: int = 50,
+    format: str,
+    align: Align = Align.LEFT,
+    wrap: int = 50,
     replace_whitespace: bool = False,
     corners: tuple[str, str, str, str] = DEFAULT_CORNERS,
     sides: tuple[str, str, str, str] = DEFAULT_SIDES,
@@ -96,12 +96,12 @@ def ccowsay(
     Args:
         message (str):
             The message text to display inside the speech bubble.
-        ccow_format (str):
-            The name or content of the `.ccow` template defining the ASCII art structure.
-        text_align (TextAlign, optional):
+        format (str):
+            The content of the `.ccow` template defining the ASCII art structure.
+        align (TextAlign, optional):
             Horizontal alignment for text inside the bubble (e.g., LEFT, CENTER, RIGHT).
             Defaults to `TextAlign.LEFT`.
-        wrap_width (int, optional):
+        wrap (int, optional):
             The maximum line width before wrapping text.
             Use a negative value (e.g., `-1`) to disable wrapping.
             Defaults to `50`.
@@ -125,30 +125,28 @@ def ccowsay(
             The complete rendered ASCII art string, ready for printing or further processing.
     """
 
-    ccow_format_sections = ccow_format.split("\n---\n", 1)
+    ccow_format_sections = format.split("\n---\n", 1)
     ccow_format_json_data = json.loads(ccow_format_sections[0])
     ccow_format_json_data.update(values)
 
     if message is None:
         message = sys.stdin.read()
 
-    if wrap_width >= 0:
+    if wrap >= 0:
         message = "\n".join(
             textwrap.wrap(
-                message, replace_whitespace=replace_whitespace, width=wrap_width
+                message, replace_whitespace=replace_whitespace, width=wrap
             )
         )
 
     return ansimarkup.parse(
         ccow_format_sections[1].format(
-            backslash="\\",
             message=cli_box.box(
                 message,
                 corners=corners,
                 sides=sides,
-                align=text_align.value,
+                align=align.value,
             ),
-            slash="/",
             **ccow_format_json_data,
         )
     )
