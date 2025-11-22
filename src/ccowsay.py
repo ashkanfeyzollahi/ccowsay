@@ -25,6 +25,9 @@ CONFIG_FILE = CONFIG_DIR / "ccowsay.conf"
 
 COW_CCOW_FILE = CONFIG_DIR / "cow.ccow"
 
+CCOWS_REPOSITORY_URL = "https://github.com/ashkanfeyzollahi/ccows"
+CCOWS_REPOSITORY_API_URL = "https://api.github.com/repos/ashkanfeyzollahi/ccows/contents/"
+
 
 def ensure_config_and_default_ccow_file() -> None:
     """
@@ -155,6 +158,7 @@ def ccowsay(
 @click.command()
 @click.argument("message", required=False)
 @click.option("-l", "--list", is_flag=True)
+@click.option("--list-online", is_flag=True)
 @click.option("-f", "--format", default=None)
 @click.option(
     "-a", "--align", default=Align.LEFT, type=click.Choice(Align)
@@ -174,6 +178,7 @@ def ccowsay(
 def main(
     message: str,
     list: bool,
+    list_online: bool,
     format: None | str,
     align: Align,
     wrap: int,
@@ -198,6 +203,21 @@ def main(
         print(
             ', '.join([ccow_format_file.name for ccow_format_file in CONFIG_DIR.glob("*.ccow")]),
         )
+        return
+
+    if list_online:
+        print(f"Here are the .ccow files found in {CCOWS_REPOSITORY_URL!r}:")
+        ccows_repository_contents = requests.get(CCOWS_REPOSITORY_API_URL)
+
+        json_data = ccows_repository_contents.json()
+
+        online_ccow_files = []
+
+        for item in json_data:
+            if item["name"].endswith(".ccow"):
+                online_ccow_files.append(item["path"])
+
+        print(', '.join(online_ccow_files),)
         return
 
     if get is not None:
