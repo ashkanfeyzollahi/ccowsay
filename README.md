@@ -42,6 +42,7 @@ For full details of supported tags and syntax see the [AnsiMarkup documentation]
 | `-s, --sides`          | Four characters for bubble sides (top, bottom, left, right)                                | `\| - \| -` |
 | `-v, --values`         | JSON string of template variable overrides                                                 | `{}`      |
 | `-l, --list`           | List available `.ccow` templates                                                           | —         |
+| `--list-online`        | List online available `.ccow` templates                                                    | —         |
 | `--get`                | Download a .ccow template from a GitHub repository and save it to the user config directory| —         |       
 
 ## Custom Templates
