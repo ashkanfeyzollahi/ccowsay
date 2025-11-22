@@ -39,7 +39,7 @@ def ensure_config_and_default_ccow_file() -> None:
         fetch_ccow("cow.ccow")
 
 
-class TextAlign(enum.Enum):
+class Align(enum.Enum):
     """
     An enum representing align positions
     """
