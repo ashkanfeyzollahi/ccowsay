@@ -224,13 +224,13 @@ def main(
         fetch_ccow(get)
         return
 
-    if ccow_format is None:
-        ccow_format = config["default_format"]
+    if format is None:
+        format = config["default_format"]
 
-    if ccow_format.startswith("@/"):
-        ccow_format = (CONFIG_DIR / ccow_format[2:]).read_text()
+    if format.startswith("@/"):
+        format = (CONFIG_DIR / format[2:]).read_text()
     else:
-        ccow_format = Path(ccow_format).read_text()
+        format = Path(format).read_text()
 
     print(
         ccowsay(
