@@ -34,14 +34,14 @@ For full details of supported tags and syntax see the [AnsiMarkup documentation]
 
 | Option                 | Description                                                                                | Default   |
 | ---------------------- | -------------------------------------------------------------------------------------------| --------- |
-| `-f, --ccow-format`    | Path or alias to a `.ccow` template                                                        | `@/cow.ccow` |
-| `-a, --text-align`     | Text alignment: `left`, `center`, `right`                                                  | `left`    |
-| `-w, --wrap-width`     | Max width before wrapping (use `-1` to disable wrapping)                                   | `40`      |
+| `-f, --format`         | Path or alias to a `.ccow` template                                                        | `@/cow.ccow` |
+| `-a, --align`          | Text alignment: `left`, `center`, `right`                                                  | `left`    |
+| `-w, --wrap`           | Max width before wrapping (use `-1` to disable wrapping)                                   | `40`      |
 | `--replace-whitespace` | Replace tabs/newlines with spaces                                                          | `False`   |
 | `-c, --corners`        | Four characters for bubble corners (TL, TR, BL, BR)                                        | `/ \ / \` |
 | `-s, --sides`          | Four characters for bubble sides (top, bottom, left, right)                                | `\| - \| -` |
 | `-v, --values`         | JSON string of template variable overrides                                                 | `{}`      |
-| `-l, --list-formats`   | List available `.ccow` templates                                                           | —         |
+| `-l, --list`           | List available `.ccow` templates                                                           | —         |
 | `--get`                | Download a .ccow template from a GitHub repository and save it to the user config directory| —         |       
 
 ## Custom Templates
@@ -126,8 +126,8 @@ from ccowsay import ccowsay, TextAlign
 ascii_art = ccowsay(
     "<green>Hello from code!</green>",
     open("cow.ccow").read(),
-    text_align=TextAlign.CENTER,
-    wrap_width=40,
+    align=TextAlign.CENTER,
+    width=40,
     eyes="oO",
     tongue="U "
 )
